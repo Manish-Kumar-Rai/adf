@@ -1,9 +1,9 @@
 {
-	"name": "pl_002CopyEntireFolder",
+	"name": "pl_003CopySpecificFiles",
 	"properties": {
 		"activities": [
 			{
-				"name": "CopyEntireFolder",
+				"name": "CopySpecifiFiles",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -21,7 +21,7 @@
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
 							"wildcardFolderPath": "Data",
-							"wildcardFileName": "*",
+							"wildcardFileName": "SALES*.*",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
