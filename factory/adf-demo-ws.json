@@ -1,0 +1,9 @@
+{
+	"name": "adf-demo-ws",
+	"location": "germanywestcentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "923445f1-1beb-4eb6-8424-f0faee0b6e44",
+		"tenantId": "e8a52afe-6ea8-47f7-b275-783f7087b5fa"
+	}
+}
