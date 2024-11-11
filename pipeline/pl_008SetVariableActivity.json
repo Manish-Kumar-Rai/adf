@@ -1,0 +1,74 @@
+{
+	"name": "pl_008SetVariableActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "SetVariableActivityX",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "x",
+					"value": "Manish"
+				}
+			},
+			{
+				"name": "SetVariableActivityY",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "SetVariableActivityX",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "y",
+					"value": 500
+				}
+			},
+			{
+				"name": "SetVariableY2",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "SetVariableActivityY",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "y",
+					"value": 800
+				}
+			}
+		],
+		"variables": {
+			"x": {
+				"type": "String",
+				"defaultValue": "xyz"
+			},
+			"y": {
+				"type": "Integer",
+				"defaultValue": 100
+			}
+		},
+		"annotations": []
+	}
+}
