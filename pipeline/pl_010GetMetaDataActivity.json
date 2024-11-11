@@ -16,13 +16,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_root_csv",
+						"referenceName": "ds_csv_entireFolder",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"columnCount",
+						"childItems",
+						"exists",
 						"itemName",
-						"exists"
+						"itemType",
+						"lastModified"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
