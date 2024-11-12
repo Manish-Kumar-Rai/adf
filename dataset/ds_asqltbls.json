@@ -1,0 +1,24 @@
+{
+	"name": "ds_asqltbls",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_asql",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().sinkFileName",
+				"type": "Expression"
+			}
+		}
+	}
+}
