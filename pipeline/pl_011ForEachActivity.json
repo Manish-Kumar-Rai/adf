@@ -1,0 +1,68 @@
+{
+	"name": "pl_011ForEachActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.Friends",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set Numbers",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "y",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"Numbers": {
+				"type": "array",
+				"defaultValue": [
+					1,
+					2,
+					3,
+					4
+				]
+			},
+			"Friends": {
+				"type": "array",
+				"defaultValue": [
+					"Suman",
+					"Jackie",
+					"Piyush",
+					"Shubham"
+				]
+			}
+		},
+		"variables": {
+			"x": {
+				"type": "Integer"
+			},
+			"y": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
