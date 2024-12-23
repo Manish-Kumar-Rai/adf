@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "uk.csv",
+				"fileName": "productWiseSalesINDIA.csv",
 				"folderPath": "Countries",
 				"fileSystem": "mycontainer"
 			},
@@ -19,6 +19,15 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "EnglishProductName",
+				"type": "String"
+			},
+			{
+				"name": "TotalSales",
+				"type": "String"
+			}
+		]
 	}
 }
