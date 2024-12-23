@@ -1,0 +1,65 @@
+{
+	"name": "pl11ForEachActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.Countries",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set Country",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "ReturnCountries",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"Numbers": {
+				"type": "array",
+				"defaultValue": [
+					1,
+					2
+				]
+			},
+			"Countries": {
+				"type": "array",
+				"defaultValue": [
+					"India",
+					"UK",
+					"USA"
+				]
+			}
+		},
+		"variables": {
+			"return": {
+				"type": "Integer"
+			},
+			"ReturnCountries": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
