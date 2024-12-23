@@ -1,9 +1,9 @@
 {
-	"name": "pl_06CopydatafromSQLDBtoADLS",
+	"name": "pl_07CopyDataAdditionalColumns",
 	"properties": {
 		"activities": [
 			{
-				"name": "CopydatafromSQLDBtoADLS",
+				"name": "CopyDataAdditionalColumns",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -16,20 +16,30 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "FileName",
+								"value": "$$FILENAME"
+							}
+						],
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "YearWise",
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"type": "DelimitedTextReadSettings"
 						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -43,13 +53,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_asql",
+						"referenceName": "ds_yearwise",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_csv_op2",
+						"referenceName": "ds_asql",
 						"type": "DatasetReference"
 					}
 				]
