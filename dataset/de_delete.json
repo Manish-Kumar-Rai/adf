@@ -1,0 +1,19 @@
+{
+	"name": "de_delete",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Join.xlsx",
+				"folderPath": "Data",
+				"fileSystem": "mycontainer"
+			}
+		}
+	}
+}
