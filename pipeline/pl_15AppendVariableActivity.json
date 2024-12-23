@@ -3,62 +3,63 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Set variable1",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Append variable1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "output",
-					"value": {
-						"value": "@variables('x')",
-						"type": "Expression"
-					}
-				}
-			},
-			{
-				"name": "Append variable1",
-				"type": "AppendVariable",
+				"name": "ForEach1",
+				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "x",
-					"value": "100"
+					"items": {
+						"value": "@pipeline().parameters.Countries",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "x",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Append variable1",
+							"type": "AppendVariable",
+							"dependsOn": [
+								{
+									"activity": "Set variable1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "output",
+								"value": {
+									"value": "@variables('x')[0]",
+									"type": "Expression"
+								}
+							}
+						}
+					]
 				}
 			},
 			{
-				"name": "Append variable1_copy1",
-				"type": "AppendVariable",
-				"dependsOn": [
-					{
-						"activity": "Set variable1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "x",
-					"value": "200"
-				}
-			},
-			{
-				"name": "Set variable1_copy1",
+				"name": "Set variable2",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "Append variable1_copy1",
+						"activity": "ForEach1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -70,9 +71,9 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "output",
+					"variableName": "x",
 					"value": {
-						"value": "@variables('x')",
+						"value": "@variables('output')",
 						"type": "Expression"
 					}
 				}
@@ -82,9 +83,15 @@
 			"Countries": {
 				"type": "array",
 				"defaultValue": [
-					"India",
-					"UK",
-					"USA"
+					[
+						"India"
+					],
+					[
+						"UK"
+					],
+					[
+						"USA"
+					]
 				]
 			}
 		},
