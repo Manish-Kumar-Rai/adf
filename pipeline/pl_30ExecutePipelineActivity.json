@@ -1,0 +1,24 @@
+{
+	"name": "pl_30ExecutePipelineActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Another Pipeline",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_08SetVariableActivity",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": []
+	}
+}
