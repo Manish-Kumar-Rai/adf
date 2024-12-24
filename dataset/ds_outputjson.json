@@ -1,0 +1,19 @@
+{
+	"name": "ds_outputjson",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Output",
+				"fileSystem": "mycontainer"
+			}
+		},
+		"schema": {}
+	}
+}
