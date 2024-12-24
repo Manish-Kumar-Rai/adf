@@ -1,0 +1,104 @@
+{
+	"name": "pl_24SwitchActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Switch1",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@string(variables('x'))",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "1000",
+							"activities": [
+								{
+									"name": "Case1",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "output",
+										"value": "1k"
+									}
+								}
+							]
+						},
+						{
+							"value": "2000",
+							"activities": [
+								{
+									"name": "Case2",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "output",
+										"value": "2k"
+									}
+								}
+							]
+						},
+						{
+							"value": "3000",
+							"activities": [
+								{
+									"name": "Case3",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "output",
+										"value": "3k"
+									}
+								}
+							]
+						}
+					],
+					"defaultActivities": [
+						{
+							"name": "Default",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "output",
+								"value": "more than 3k"
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"x": {
+				"type": "Integer",
+				"defaultValue": 30000
+			},
+			"output": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
