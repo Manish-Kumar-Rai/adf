@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Execute Another Pipeline",
+				"name": "Execute Pipeline1",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"policy": {
@@ -12,10 +12,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_08SetVariableActivity",
+						"referenceName": "pl_30Parameters",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"x": 100
+					}
 				}
 			}
 		],
