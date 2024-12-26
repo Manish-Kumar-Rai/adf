@@ -36,7 +36,7 @@
 							"maxRowsPerFile": 200,
 							"fileNamePrefix": "",
 							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"fileExtension": ".csv"
 						}
 					},
 					"enableStaging": false,
