@@ -16,19 +16,23 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "ExcelSource",
+						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"wildcardFolderPath": "CB/Input",
+							"wildcardFolderPath": "YearWise",
 							"wildcardFileName": "*.*",
 							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "MergeFiles"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -48,7 +52,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_cbInput",
+						"referenceName": "ds_yearwise",
 						"type": "DatasetReference"
 					}
 				],

@@ -1,0 +1,18 @@
+{
+	"name": "ds_cbBinaryInput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "CB/Input",
+				"fileSystem": "mycontainer"
+			}
+		}
+	}
+}
