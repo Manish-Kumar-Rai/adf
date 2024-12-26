@@ -1,0 +1,19 @@
+{
+	"name": "ds_cbInput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "CB/Input",
+				"fileSystem": "mycontainer"
+			}
+		},
+		"schema": []
+	}
+}
