@@ -1,0 +1,24 @@
+{
+	"name": "ds_asqlNHFiles",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_asql",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"ParamTableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().ParamTableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
