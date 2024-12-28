@@ -1,9 +1,9 @@
 {
-	"name": "pl_45IntroductionToDataFlows",
+	"name": "pl_46SelectTransformation",
 	"properties": {
 		"activities": [
 			{
-				"name": "df01Intro",
+				"name": "Data flow",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "df01Intro",
+						"referenceName": "df02Select",
 						"type": "DataFlowReference"
 					},
 					"compute": {
