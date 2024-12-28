@@ -58,6 +58,9 @@
 				"type": "Array"
 			}
 		},
+		"folder": {
+			"name": "ControlFlows"
+		},
 		"annotations": []
 	}
 }

@@ -11,10 +11,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"pipeline": {
-						"referenceName": "pl_30Parameters",
-						"type": "PipelineReference"
-					},
 					"waitOnCompletion": true,
 					"parameters": {
 						"x": 100
@@ -22,6 +18,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "ControlFlows"
+		},
 		"annotations": []
 	}
 }

@@ -99,6 +99,9 @@
 				"type": "String"
 			}
 		},
+		"folder": {
+			"name": "ControlFlows"
+		},
 		"annotations": []
 	}
 }

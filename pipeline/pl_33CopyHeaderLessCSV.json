@@ -160,6 +160,9 @@
 				]
 			}
 		],
+		"folder": {
+			"name": "ControlFlows"
+		},
 		"annotations": []
 	}
 }

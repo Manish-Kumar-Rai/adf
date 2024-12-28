@@ -24,6 +24,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -125,6 +126,7 @@
 								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -226,6 +228,9 @@
 			"Size": {
 				"type": "Integer"
 			}
+		},
+		"folder": {
+			"name": "ControlFlows"
 		},
 		"annotations": []
 	}
