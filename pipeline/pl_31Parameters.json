@@ -31,6 +31,9 @@
 				"type": "Integer"
 			}
 		},
+		"folder": {
+			"name": "ControlFlows"
+		},
 		"annotations": []
 	}
 }

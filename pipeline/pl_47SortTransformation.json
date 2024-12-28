@@ -1,10 +1,10 @@
 {
-	"name": "pl_21LookupActivity",
+	"name": "pl_47SortTransformation",
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup1",
-				"type": "Lookup",
+				"name": "Data flow",
+				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -15,21 +15,20 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+					"dataflow": {
+						"referenceName": "df03Sort",
+						"type": "DataFlowReference"
 					},
-					"dataset": {
-						"referenceName": "ds_asqldailysales",
-						"type": "DatasetReference"
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
 					},
-					"firstRowOnly": false
+					"traceLevel": "Fine"
 				}
 			}
 		],
 		"folder": {
-			"name": "ControlFlows"
+			"name": "Transformation"
 		},
 		"annotations": []
 	}
