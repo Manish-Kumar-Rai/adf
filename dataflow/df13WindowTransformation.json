@@ -1,0 +1,63 @@
+{
+	"name": "df13WindowTransformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_OrdersNew",
+						"type": "DatasetReference"
+					},
+					"name": "ReadCsv"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_asqlWindow",
+						"type": "DatasetReference"
+					},
+					"name": "sinkWindow"
+				}
+			],
+			"transformations": [
+				{
+					"name": "window1"
+				},
+				{
+					"name": "aggregateData"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          OrderDate as date 'dd-MM-yyyy',",
+				"          ProductKey as short,",
+				"          Country as string,",
+				"          EnglishProductName as string,",
+				"          SalesAmount as double,",
+				"          TaxAmt as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> ReadCsv",
+				"aggregateData window(over(OrderYear = year(OrderDate),",
+				"          OrderMonth = month(OrderDate)),",
+				"     asc(OrderDate, true),",
+				"     CumulativeSales = round(sum(TotalSales),0)) ~> window1",
+				"ReadCsv aggregate(groupBy(OrderDate),",
+				"     TotalSales = round(sum(SalesAmount),0)) ~> aggregateData",
+				"window1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkWindow"
+			]
+		}
+	}
+}
