@@ -1,0 +1,62 @@
+{
+	"name": "df18FlattenTransformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_ordersJson",
+						"type": "DatasetReference"
+					},
+					"name": "ReadOrders"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_asqlFlatten",
+						"type": "DatasetReference"
+					},
+					"name": "sinkJson"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flattenJson"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          EmployeeKey as integer,",
+				"          EmpName as string,",
+				"          Contact as string,",
+				"          Items as string[]",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'arrayOfDocuments') ~> ReadOrders",
+				"ReadOrders foldDown(unroll(Items),",
+				"     mapColumn(",
+				"          EmployeeKey,",
+				"          EmpName,",
+				"          Contact,",
+				"          Items",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flattenJson",
+				"flattenJson sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkJson"
+			]
+		}
+	}
+}
