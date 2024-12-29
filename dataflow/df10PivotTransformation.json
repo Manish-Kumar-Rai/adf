@@ -1,0 +1,59 @@
+{
+	"name": "df10PivotTransformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_OrdersNew",
+						"type": "DatasetReference"
+					},
+					"name": "ReadCsv"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_asqlpivotdf",
+						"type": "DatasetReference"
+					},
+					"name": "sinkPivot"
+				}
+			],
+			"transformations": [
+				{
+					"name": "pivotData"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          OrderDate as date 'dd-MM-yyyy',",
+				"          ProductKey as short,",
+				"          Country as string,",
+				"          EnglishProductName as string,",
+				"          SalesAmount as double,",
+				"          TaxAmt as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> ReadCsv",
+				"ReadCsv pivot(groupBy(EnglishProductName),",
+				"     pivotBy(Country),",
+				"     {} = sum(SalesAmount),",
+				"     columnNaming: '$N$V',",
+				"     lateral: true) ~> pivotData",
+				"pivotData sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkPivot"
+			]
+		}
+	}
+}
