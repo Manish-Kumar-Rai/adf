@@ -11,10 +11,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"waitOnCompletion": true,
-					"parameters": {
-						"x": 100
-					}
+					"pipeline": {
+						"referenceName": "pl_21LookupActivity",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
