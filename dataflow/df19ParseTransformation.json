@@ -1,0 +1,75 @@
+{
+	"name": "df19ParseTransformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_ordersExcel",
+						"type": "DatasetReference"
+					},
+					"name": "ReadExcel"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_asqlParse",
+						"type": "DatasetReference"
+					},
+					"name": "sinkParse"
+				}
+			],
+			"transformations": [
+				{
+					"name": "parseDelimited"
+				},
+				{
+					"name": "parseJson"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          OrderId as integer,",
+				"          OrderDate as date,",
+				"          OrderDetails as string,",
+				"          BatchDetails as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> ReadExcel",
+				"ReadExcel parse(OrderDet = OrderDetails ? (Item as string,",
+				"          Qty as integer,",
+				"          Price as integer),",
+				"     format: 'delimited',",
+				"     columnNamesAsHeader: false,",
+				"     columnDelimiter: '|',",
+				"     nullValue: '') ~> parseDelimited",
+				"parseDelimited parse(BatchDet = BatchDetails ? (batchid as integer,",
+				"          site as string),",
+				"     format: 'json',",
+				"     documentForm: 'arrayOfDocuments') ~> parseJson",
+				"parseJson sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          OrderId,",
+				"          OrderDate,",
+				"          Item = OrderDet.Item,",
+				"          Qty = OrderDet.Qty,",
+				"          Price = OrderDet.Price,",
+				"          Batchid = BatchDet.batchid,",
+				"          Site = BatchDet.site",
+				"     )) ~> sinkParse"
+			]
+		}
+	}
+}
