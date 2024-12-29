@@ -1,0 +1,88 @@
+{
+	"name": "df17ExistsTransformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_lookupSales",
+						"type": "DatasetReference"
+					},
+					"name": "ReadSales"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_lookupProducts",
+						"type": "DatasetReference"
+					},
+					"name": "ReadProducts"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_lookupCustomer",
+						"type": "DatasetReference"
+					},
+					"name": "ReadCustomers"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_asqlExists",
+						"type": "DatasetReference"
+					},
+					"name": "sinkExists"
+				}
+			],
+			"transformations": [
+				{
+					"name": "existsProducts"
+				},
+				{
+					"name": "existsCustomers"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          ProductKey as short,",
+				"          CustomerKey as short,",
+				"          SalesAmount as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> ReadSales",
+				"source(output(",
+				"          ProductKey as short,",
+				"          EnglishProductName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> ReadProducts",
+				"source(output(",
+				"          CustomerKey as short,",
+				"          FullName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> ReadCustomers",
+				"ReadSales, ReadProducts exists(ReadSales@ProductKey == ReadProducts@ProductKey,",
+				"     negate:false,",
+				"     broadcast: 'auto')~> existsProducts",
+				"existsProducts, ReadCustomers exists(ReadSales@CustomerKey == ReadCustomers@CustomerKey,",
+				"     negate:false,",
+				"     broadcast: 'auto')~> existsCustomers",
+				"existsCustomers sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkExists"
+			]
+		}
+	}
+}
