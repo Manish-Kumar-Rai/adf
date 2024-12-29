@@ -1,0 +1,59 @@
+{
+	"name": "df20StringifyTransformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_empNewJson",
+						"type": "DatasetReference"
+					},
+					"name": "ReadEmployees"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_Stringify62",
+						"type": "DatasetReference"
+					},
+					"name": "sinkStringify"
+				}
+			],
+			"transformations": [
+				{
+					"name": "stringifyJson"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as integer,",
+				"          empname as string,",
+				"          salary as integer,",
+				"          phone as (mobile as integer, home as integer)[]",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'arrayOfDocuments') ~> ReadEmployees",
+				"ReadEmployees stringify(Phones = phone ? string,",
+				"     format: 'json') ~> stringifyJson",
+				"stringifyJson sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          empid,",
+				"          empname,",
+				"          salary,",
+				"          phone,",
+				"          Phones",
+				"     )) ~> sinkStringify"
+			]
+		}
+	}
+}
